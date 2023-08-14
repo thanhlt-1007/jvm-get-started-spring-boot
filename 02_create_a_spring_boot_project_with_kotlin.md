@@ -55,3 +55,70 @@ The generated Gradle project corresponds to the Maven's standard directory layou
 - There are packages and classes under the `main/kotlin` folder that belongs to the application.
 
 - The entry point to the application is the `main()` method of the `DemoApplication.kt` file.
+
+## Explore the project Gradle build file
+
+Open the `build.gradle.kts` file: it is the Gradle Kotlin build script, which contains a list of the dependencies required for the application.
+
+The Gradle file is standard for Spring Boot, ut it also contains necessary Kotlin dependencies, including the kotlin-spring Gradle plugin - kotlin`("plugin.spring")`.
+
+Here is the full script with the explanation of all parts and dependencies:
+
+```KOTLIN
+// For `KotlinCompile` task below
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+  id("org.springframework.boot") version "3.1.2"
+  id("io.spring.dependency-management") version "1.1.2"
+  kotlin("jvm") version "1.9.0"                                       // The version of Kotlin to use
+  kotlin("plugin.spring") version "1.9.0"                             // The Kotlin Spring plugin
+}
+
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
+  implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("com.fasterxml.jackson.module:jackson-module-kotli") // Jackson extensions for Kotlin working with JSON
+  implementation("org.jetbrains.kotli:kotli-reflect")                 // Kotlin reflection library, required for working with Spring
+  runtimeOnly("com.h2database:h2")
+  testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+tasks.withType<KotlinCompile> {                                       // Settings for `KotlinCompile` tasks
+  kotlinOptions {                                                     // Kotlin compiler options
+    freeCompileArgs = listOf("-Xjsr305=strict")                       // `-Xjsr305=strict` enables the strict mode for JSR-305 annotations
+    jvmTarget = "17"                                                  // This options specifies the target version of the generated JVM bytecode
+  }
+}
+
+tasks.withType<Test> {
+  useJUnitPlatform()
+}
+```
+
+As you can see, there are a few Kotlin-related artifacts added to the Gradle build file:
+
+1. In the `plugin` block, there are two Kotlin artifacts:
+
+  - `kotlin("jvm")` - the plugin defines the version of Kotlin to be used in the project.
+
+  - `kotlin("plugin.spring")` - Kotlin Spring compiler plugin for adding the `open` modifier to Kotlin classes in order to make them compatible with Spring Frameword features.
+
+2. In the `dependencies` block, a few Kotlin-related modules listed:
+
+  - `com.fasterxml.jackson.module:jackson-module-kotlin` - the module adds support for serialization add deserialization of Kotlin classes and data classes.
+
+  - `org.jetbrains.kotlin:kotlin-reflact` - Kotlin reflaction library.
+
+3.  After the dependencies section, you can see the `KotlinCompile` task configuration block. This is where you can add extra arguments to the compiler to enable or disable various language features.
