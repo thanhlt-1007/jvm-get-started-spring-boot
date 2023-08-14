@@ -252,3 +252,31 @@ class MessageController {
   fun index(@RequestParam("name") name: String) = "Hello, $name!"
 }
 ```
+
+## Run the application
+
+The Spring application is now ready to run:
+
+1. Click the gren Run icon in the gutter beside the `main()` method:
+
+![run-spring-boot-application.png](https://kotlinlang.org/docs/images/run-spring-boot-application.png)
+
+You can also run the
+
+```BASH
+./gradlew bootRun
+```
+
+command in the terminal.
+
+This starts the local server on your computer.
+
+2. Once the application starts, open the following URL:
+
+```BASH
+http://localhost:8080?name=John
+```
+
+You shoud see "Hello, John" printed as a response:
+
+![spring-application-response.png](https://kotlinlang.org/docs/images/spring-application-response.png)
