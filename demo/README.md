@@ -20,4 +20,18 @@
 
 - Packaging: JAR
 
-- Java: 20
+- Java: 17
+
+## Command
+
+- Runs this project as a Spring Boot application
+
+```sh
+./gradlew bootRun
+```
+
+- Access
+
+```
+http://localhost:8080/
+```
