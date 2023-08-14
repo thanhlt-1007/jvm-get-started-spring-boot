@@ -12,7 +12,7 @@ Going through these steps, you'll learn a lot of essential features of Kotlin la
 
 4. Use Spring Data CurdRepository for database access
 
-## Next Step
+## 1. Next Step
 
 Start by creating a Spring Boot project with Kotlin using IntelliJ IDEA.
 

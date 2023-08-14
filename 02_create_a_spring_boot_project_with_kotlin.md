@@ -2,13 +2,13 @@
 
 The first part of the tutorial shows you how to create a Spring Boot project in Intellij IDEA using Project Wizard
 
-## Before you start
+## 1. Before you start
 
 Download and install the latest version of IntelliJ IDEA Ultimate Edition
 
 If you use IntelliL IDEA Community Edition or another IDE, you can generate a Spring Boot project using a [web-based project generator](https://start.spring.io/)
 
-## Create a Spring Boot project
+## 2. Create a Spring Boot project
 
 Create a new Spring Boot Project with Kotlin by using the Project Wizard in IntelliJ IDEA Ultimate Edition:
 
@@ -56,7 +56,7 @@ The generated Gradle project corresponds to the Maven's standard directory layou
 
 - The entry point to the application is the `main()` method of the `DemoApplication.kt` file.
 
-## Explore the project Gradle build file
+## 3. Explore the project Gradle build file
 
 Open the `build.gradle.kts` file: it is the Gradle Kotlin build script, which contains a list of the dependencies required for the application.
 
@@ -123,7 +123,7 @@ As you can see, there are a few Kotlin-related artifacts added to the Gradle bui
 
 3.  After the dependencies section, you can see the `KotlinCompile` task configuration block. This is where you can add extra arguments to the compiler to enable or disable various language features.
 
-## Explore the generated Spring Boot application
+## 4. Explore the generated Spring Boot application
 
 Open the DemoApplication.kt file:
 
@@ -165,7 +165,7 @@ If you check the declaration of the `runApplication()` function, you will see th
 
 The args is a parameter to the `main()` function declared as an array of Strings. Since there is an array of strings, and you want to pass its content to the function, use the spread operator (prefix the array with a start sign *)
 
-## Create a controller
+## 5. Create a controller
 
 The application is ready to run, but, let's update its logic first.
 
@@ -253,7 +253,7 @@ class MessageController {
 }
 ```
 
-## Run the application
+## 6. Run the application
 
 The Spring application is now ready to run:
 
