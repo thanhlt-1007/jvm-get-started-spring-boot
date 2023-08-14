@@ -122,3 +122,45 @@ As you can see, there are a few Kotlin-related artifacts added to the Gradle bui
   - `org.jetbrains.kotlin:kotlin-reflact` - Kotlin reflaction library.
 
 3.  After the dependencies section, you can see the `KotlinCompile` task configuration block. This is where you can add extra arguments to the compiler to enable or disable various language features.
+
+## Explore the generated Spring Boot application
+
+Open the DemoApplication.kt file:
+
+```KOTLIN
+package com.example.demo
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+@SpringBootApplication
+class DemoApplication
+
+fun main(args: Array<String>) {
+  runApplication<DemoApplication>(*args)
+}
+```
+
+### Declaring classes - class DemoApplication
+
+Right after package declaration and import statements you can see the first class declaration, `class DemoApplication`.
+
+In Kotlin, if a class doesn't include any members (properties or functions), you can omit the class body (`{}`) for food.
+
+### @SpringBootApplication annotation
+
+@SpringBootApplication annotation is a convenience annotation in a Spring Boot application. It enables Spring Boot's auto-configuration, component scan, and be able to define an extra configuration on their "application class".
+
+### Program entry point - main()
+
+The `main()` function is the entry point to the application.
+
+It is declared as a top-level function outside the DemoApplication class. The `main()` function invokes the Spring's `runApplication(*args)` function to start the application with the Spring Framework.
+
+### Variable arguments = args: Array<String>
+
+If you check the declaration of the `runApplication()` function, you will see that the parameter of the function is marked with vararg modifier: vararg args: String. This means that you can pass a variable number of String atguments to the function.
+
+### The spread operator - (*args)
+
+The args is a parameter to the `main()` function declared as an array of Strings. Since there is an array of strings, and you want to pass its content to the function, use the spread operator (prefix the array with a start sign *)
