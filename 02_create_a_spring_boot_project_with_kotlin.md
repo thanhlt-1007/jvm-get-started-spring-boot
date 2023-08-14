@@ -164,3 +164,91 @@ If you check the declaration of the `runApplication()` function, you will see th
 ### The spread operator - (*args)
 
 The args is a parameter to the `main()` function declared as an array of Strings. Since there is an array of strings, and you want to pass its content to the function, use the spread operator (prefix the array with a start sign *)
+
+## Create a controller
+
+The application is ready to run, but, let's update its logic first.
+
+In the Spring application, a controller is used to handle the web requests. In the `DemoApplication.kt` file, create the `MessageController` class as follows:
+
+```KOTLIN
+@RestController
+class MessageController {
+  @GetMapping("/")
+  fun index(@RequestParam("name") name: String) = "Hello, $name!"
+}
+```
+
+### @RestController annotation
+
+You need to tell Spring that `MessageController` is a REST Controller, so you should mark it with the @RestController annotation.
+
+This annotation means this class will be picked up by the component scan because it's on the same package as our DemoApplication class.
+
+### @GetMapping annotation
+
+`@GetMapping` marks the functions of the REST controller that implement the endpoints corresponding to HTTP GET calls:
+
+```KOTLIN
+@GetMapping("/")
+fun index(@RequestParam("name") name: String) = "Hello, $name!"
+```
+
+### @RequestParam annotation
+
+The function parameter `name` is marked with `@RequestParam` annotation. This annotation indicates that a method parameter should be bound to a web request parameter.
+
+Hence, if you access the application at the toor and supply a request parameter called "name", like "/?name=<your-name>", the parameter value will be used as an argument for invoking the `index()` function.
+
+### Single-expression functions - index()
+
+Since `index()` function contains only one statement you can declare it as a single-expression function.
+
+This mean the curly braces can be ommited and the body is specified after the equals sign `=`.
+
+### Type interface for function return types
+
+The `index()` functions does not declare the return type explicitly. Instead, the compiler infers the return type by looking at the result of the statement on the right hand side from the equals sign `=`.
+
+The type of `Hello, $name!` expression is `String`, hence the return type of the function is also `String`.
+
+### String template - $name
+
+`Hello, $name!` expression is called a String template in Kotlin.
+
+String templates are String literal that contain embedded expressions.
+
+This is a convenient replacement for String concatenation operations.
+
+These Spring annotations also require addtional imports:
+
+```KOTLIN
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
+```
+
+Here is a complete code of `DemoApplication.kt`:
+
+```KOTLIN
+package com.example.demo
+
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
+
+@SpringBootApplication
+class DemoApplication
+
+fun main(args: Array<String>) {
+  runApplication<DemoApplication>(*args)
+}
+
+@RestController
+class MessageController {
+  @GetMapping("/")
+  fun index(@RequestParam("name") name: String) = "Hello, $name!"
+}
+```
