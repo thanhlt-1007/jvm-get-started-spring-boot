@@ -91,6 +91,38 @@ The method responsible for handling HTTP POST requests needs to be annotated wit
 
 ## 3. Update the MessageService class
 
+The `id` for `Message` class was declared as a nullable String:
+
+```KOTLIN
+data class Message(val id: String?, val text: String)
+```
+
+It would not be correct to store the `null` as an `id` value in the database through: you need to handle this situation gracefully.
+
+Update your code to generate a new value when the `id` is `null` while storing the mnessages in the database:
+
+```KOTLIN
+import java.util.UUID
+
+@Service
+class MessageService(val db: JdbcTemplate) {
+  fun findMessages(): List<Message> = db.query("select * from messages") { response, _ ->
+    Message(response.getString("id"), response.getString("text"))
+  }
+
+  fun save(message: Message) {
+    val id = message.id ?: UUID.randomUUID().toString()
+    db.update("insert into messages values (?, ?)", id, message.text)
+  }
+}
+```
+
+### a. Elvis operator - ?:
+
+The code `message.id ?: UUID.randomUUID().toString()` uses the Elvis operator (if-not-null-else shorthand) `?:`. If the expression to the left of `?:` is not `null`, the Elvis operator returns it; otherwise, it returns the expression to the right. Note that the expression on the right-hand side is evaluated only if the lefe-hand side is `null`.
+
+The application code is already to work with the database. It is now required to configure the data source.
+
 ## 4. Configure the database
 
 ## 5. Add message to database via HTTP request
