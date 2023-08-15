@@ -200,6 +200,18 @@ GET http://localhost:8080/
 
 ### a. Alternative way to execute requests
 
+You can also use any other HTTP client or the cURL command-line tool. For example, run the following commands in the terminal to get the same result:
+
+```BASH
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Hello!\" }"
+
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Bonjour!\" }"
+
+curl -X POST --location "http://localhost:8080" -H "Content-Type: application/json" -d "{ \"text\": \"Privet!\" }"
+
+curl -X GET --location "http://localhost:8080"
+```
+
 ## 6. Retrieve messages by id
 
 ## 7. Run the application
