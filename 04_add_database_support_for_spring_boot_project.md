@@ -67,6 +67,28 @@ db.query("select * from messages") { response, _ -> Message(response.getString("
 
 ## 2. Update the MessageController class
 
+Update `MessageController` to use the new `MessageService` class:
+
+```KOTLIN
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.PostMapping
+
+@RestController
+class MessageController(val service: MessageService) {
+  @GetMapping("/")
+  fun index(): List<Message> = service.findMessages()
+
+  @PostMapping("/")
+  fun post(@PostMapping message: Message) {
+    service.save(message)
+  }
+}
+```
+
+### a. @PostMapping annotation
+
+The method responsible for handling HTTP POST requests needs to be annotated with `@PostMapping` annotation. To be able to convert the JSON sent as HTTP Body content into an object, you need to use the `@RequestBody` annotation for the method argument. Thanks to having Jackson library in the classpath of the application, the conversion happens automatically.
+
 ## 3. Update the MessageService class
 
 ## 4. Configure the database
