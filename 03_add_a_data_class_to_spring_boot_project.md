@@ -116,3 +116,17 @@ data class Message(val id: String?, val text: String)
 ```
 
 ## 2. Run the application
+
+The Spring application is ready to run:
+
+1. Run the application again.
+
+2. Once the application starts, open the following URL:
+
+```KOTLIN
+http://localhost:8080
+```
+
+You will see a page wth a collection of messages in JSON format:
+
+![messages-in-json-format.png](https://kotlinlang.org/docs/images/messages-in-json-format.png)
