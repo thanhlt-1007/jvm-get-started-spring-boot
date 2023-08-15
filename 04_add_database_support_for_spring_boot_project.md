@@ -157,6 +157,47 @@ These settings enable the database for the Spring Boot application. See the full
 
 ## 5. Add message to database via HTTP request
 
+You should use an HTTP client to work with previously created endpoints. In IntelliL IDEA, use the embedded HTTP client:
+
+1. Run the application. Once the application is up and running, you can execute POST requests to store messages in the database. Create the `requests.http` file in the `src/main/resources` folder add the following HTTP requests:
+
+```KOTLIN
+### Post "Hello!"
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "text": "Hello!"
+}
+
+### Post "Bonjour!"
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "text": "Bonjour!"
+}
+
+### Post "Privet!"
+POST http://localhost:8080/
+Content-Type: application/json
+
+{
+  "text": "Privet!"
+}
+
+### Get all the messages
+GET http://localhost:8080/
+```
+
+2. Execute all POST requests. Use the green Run icon on the gutter next to the request declaration. These requests write the text messages to the database:
+
+![execute-post-requests.png](https://kotlinlang.org/docs/images/execute-post-requests.png)
+
+3. Execute the GET request and see the result in the Run tool window:
+
+![execute-get-requests.png](https://kotlinlang.org/docs/images/execute-get-requests.png)
+
 ### a. Alternative way to execute requests
 
 ## 6. Retrieve messages by id
