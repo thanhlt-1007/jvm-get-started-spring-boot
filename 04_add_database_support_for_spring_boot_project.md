@@ -125,6 +125,36 @@ The application code is already to work with the database. It is now required to
 
 ## 4. Configure the database
 
+Configure the database in the application:
+
+1. Create `schema.sql` file in the `src/main/resources` directory. It will store the database object definitions:
+
+![create-database-schema.png](https://kotlinlang.org/docs/images/create-database-schema.png)
+
+2. Update the `src/main/resources/schema.sql` file with the following code:
+
+```SQL
+CREATE TABLE IF NOT EXISTS messages (
+  id VARCHAR(60) PRIMARY KEY,
+  text VARCHAR NOT NULL
+);
+```
+
+It creates the `messages` table with two columns: `id` and `text`. The table structure matches the structure of the `Message` class.
+
+3. Open the `application.properties` file located in the `src/main/resources` folder and add the following application properties:
+
+```KOTLIN
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url=jdbc:h2:file:./data/testdb
+spring.datasource.username=name
+spring.datasource.password=password
+spring.sql.init.schema-locations=classpath:schemas.sql
+spring.sql.init.mode=always
+```
+
+These settings enable the database for the Spring Boot application. See the full list of common application properties in the Spring documenttation.
+
 ## 5. Add message to database via HTTP request
 
 ### a. Alternative way to execute requests
